@@ -12,7 +12,7 @@ module.exports = merge(common, {
 	},
 	devtool: "inline-source-map",
 	devServer: {
-		port: 8081,
+		port: 3000,
 		headers: { "Access-Control-Allow-Origin": "*" },
 		hot: true,
 		writeToDisk: true,

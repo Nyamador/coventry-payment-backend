@@ -6,16 +6,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: {
-    shop: "./frontend/index.js",
-    product: "./frontend/product.js",
-    dashboard: "./frontend/dashboard.js",
-    landing: [
-      "./frontend/landing.js",
-      "./frontend/styles/landing/landing.less",
-    ],
-    explore: "./frontend/explore.js",
-  },
+  entry: './frontend/index.js',
   module: {
     rules: [
       {
@@ -53,7 +44,12 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets : ['@babel/preset-env', '@babel/preset-react']
+          }
+        },
       },
     ],
   },
