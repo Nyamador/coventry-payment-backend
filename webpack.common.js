@@ -22,12 +22,23 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|jpg|gif|webp)$/,
+        test: /\.(png|jpg|gif|webp)$/,
         use: [
           {
             loader: "file-loader",
             options: {
               name: "img/[name].[ext]",
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000,
             },
           },
         ],
