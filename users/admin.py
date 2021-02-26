@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 
 
 from .forms import CoventryUserChangeForm, CoventryUserCreationForm
-from .models import CoventryUser
+from .models import CoventryUser, Customer
 
 
 class CoventryUserAdmin(UserAdmin):
@@ -14,3 +14,4 @@ class CoventryUserAdmin(UserAdmin):
 
 
 admin.site.register(CoventryUser, CoventryUserAdmin)
+admin.site.register(Customer)
