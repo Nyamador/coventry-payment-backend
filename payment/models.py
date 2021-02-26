@@ -1,8 +1,10 @@
 from django.db import models
-
+from payment_gateway import settings
+from payment_gateway.utils import random_string_gen
 import uuid
 
 class Transaction(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     public_id = models.UUIDField(default=uuid.uuid4, editable=False)
     external_id = models.CharField("External ID", max_length=100)
     currency = models.CharField("Currency", max_length=5, default="GHC")
@@ -19,7 +21,9 @@ class Transaction(models.Model):
         return self.id
 
 class Otp(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     reference = models.UUIDField(default=uuid.uuid4, editable=False)
+    value = models.CharField("OTP Value", default=random_string_gen)
     expiry = models.PositiveSmallIntegerField("Expiry in Minutes", default=5)
     date_created = models.DateField("Date Created", auto_now_add=True)
 
@@ -27,5 +31,10 @@ class Otp(models.Model):
         return self.reference
 
 
-class Refund(models.Model):
-    pass
+class Link(models.Model):
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_created = models.DateField("Date Created", auto_now_add=True)
+
+    def __str__(self):
+        return self.id
