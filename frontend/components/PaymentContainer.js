@@ -7,6 +7,9 @@ import LogoAndAmount from './LogoAndAmount'
 import HowWouldYouLikeToPay from './HowWouldYouLikeToPay'
 import FlexColumn from './FlexColumn'
 import CardForm from './CardForm'
+import MomoForm from './MomoForm.jsx'
+import ActionMenu from './ActionMenu.jsx'
+import SelectedMethodHeader from './SelectedMethodHeader.jsx'
 
 
 import card from '../icons/credit-card.svg'
@@ -55,6 +58,8 @@ const ImageWrapper = styled.span`
 `
 
 
+
+
 const PaymentContainer = () => {
     const [isMomoActive, setIsMomoActive] = useState(false)
     const [isCardActive, setIsCardActive] = useState(false)
@@ -64,17 +69,26 @@ const PaymentContainer = () => {
     return (
         <PaymentWrapper>
             <Header>
-                <SecureText/>
+                {showHowToPay && <SecureText/>}
+                {isCardActive && <SelectedMethodHeader title="Card " img_url={card}/>}
+                {isMomoActive && <SelectedMethodHeader title="MoMo" img_url={phone}/>}
             </Header>
             <LogoAndAmount/>
             
-            {isMomoActive && <p>Momo</p>}
+            {isMomoActive && <MomoForm/>}
 
             {isCardActive && <CardForm/>}
         
            {showHowToPay && <HowWouldYouLikeToPay/>}
+
+           
             
 
+            {isMomoActive || isCardActive ? <ActionMenu onPaymentMethodChange={() => {
+                setShowHowToPay(true)
+                setIsMomoActive(false)
+                setIsCardActive(false)
+            }}/> : 
             <PaymentMethodSelectionWrapper>
                 <PaymentMethodButton onClick={
                     () => {
@@ -99,7 +113,7 @@ const PaymentContainer = () => {
                     </ImageWrapper>
                     <p>Pay With <strong>MoMo</strong> </p>
                 </PaymentMethodButton>
-            </PaymentMethodSelectionWrapper>
+            </PaymentMethodSelectionWrapper>}
 
         </PaymentWrapper>
     )
