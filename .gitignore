@@ -142,5 +142,5 @@ node_modules
 yarn.lock 
 
 #webpack output
-frontend/*
+frontend/static
 
