@@ -19,29 +19,30 @@ const CardForm = () => {
     const [cvv, setCvv] = useState("")
 
     const handleCreditCardInputChange = (event) => {
-        setCardNumber(event.target.value)
+        const ccNumber = event.target.value
+        
     }
 
     const handleExpiryInputChange = (event) => {
-        const expiryDate = event.target.value.substring(0,5)
-        const month = expiryDate.substring(0,2)
-        const year = expiryDate.slice(2,4)
-        if (expiryDate.length === 4){
-            setExpiryDate(`${month}/${year}`)
+        const expiry = event.target.value.substring(0,5)
+        const month = expiry.substring(0,2)
+        const year = expiry.slice(2,4)
+        if (expiry.length === 4){
+            setExpiryDate(`${month} / ${year}`)
         }else{
-            setExpiryDate(expiryDate)
+            setExpiryDate(expiry)
         }
     }
 
     const handleCVVInputChange = (event) => {
-        const cvv = event.target.value
-        cvv.length > 3 ? setCvv(cvv.slice(0,3)) : setCvv(cvv)
+        const cvvvalue = event.target.value
+        cvvvalue.length > 3 ? setCvv(cvvvalue.slice(0,3)) : setCvv(cvvvalue)
     }
 
     return (
         <CardFormWrapper>
             <form onSubmit={e => e.preventDefault()}>
-                <InputElement type="text" label="CARD NUMBER" placeholder="4242 4242 4242 4242" id="card_number" containerStyle={{borderBottom: '0px'}} changeHandler={handleCreditCardInputChange}/>
+                <InputElement type="text" value={cardNumber} label="CARD NUMBER" placeholder="4242 4242 4242 4242" id="card_number" containerStyle={{borderBottom: '0px'}} changeHandler={handleCreditCardInputChange}/>
 
                 <MonthCvvWrapper>
                     <InputElement type="text" value={expiryDate} label="EXPIRY DATE" placeholder="MM / YY" id="card_number" containerStyle={{ width: '50%', borderRight: '0px'}} changeHandler={handleExpiryInputChange}/>
