@@ -1,4 +1,4 @@
-## Payment Backend Built With Django and React ( Custom Webpack Builds)
+## Payment Backend Built With Django and React (Webpack)
 
 ### Payment Page UI
 ![Payment Page](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0zwzl9j6v1fmhek2hmnz.png)
