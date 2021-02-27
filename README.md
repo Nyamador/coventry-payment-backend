@@ -16,7 +16,7 @@
 7.  Run the project `python3 manage.py runserver`
 
 
-**Frontend - Reaact**
+**Frontend - React**
 The frontend of the application is build in React but relies on Django for it's intial render. Hence it cannot be run independently without starting the Django server
 1. Install  dependencies with  `yarn install`
 2. `yarn start` to start the webpack server
