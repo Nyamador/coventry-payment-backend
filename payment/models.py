@@ -1,6 +1,6 @@
 from django.db import models
 from payment_gateway import settings
-from payment_gateway.utils import random_string_gen
+from payment_gateway.utils.string import random_string_gen
 import uuid
 
 class Transaction(models.Model):
@@ -23,12 +23,12 @@ class Transaction(models.Model):
 class Otp(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     reference = models.UUIDField(default=uuid.uuid4, editable=False)
-    value = models.CharField("OTP Value", default=random_string_gen)
+    value = models.CharField("OTP Value", default=random_string_gen,max_length=5)
     expiry = models.PositiveSmallIntegerField("Expiry in Minutes", default=5)
     date_created = models.DateField("Date Created", auto_now_add=True)
 
     def __str__(self):
-        return self.reference
+        return str(self.reference)
 
 
 class Link(models.Model):
