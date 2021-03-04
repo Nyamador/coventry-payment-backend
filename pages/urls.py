@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('pay', views.index, name="home"),
-    path('api/v1/otp', views.CreateOTP, name='create_otp'),
+    path('api/v1/', include('pages.api_urls')),
 ]
