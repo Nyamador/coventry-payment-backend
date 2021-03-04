@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.index, name="home"),
+    path('pay', views.index, name="home"),
+    path('api/v1/otp', views.CreateOTP, name='create_otp'),
 ]
