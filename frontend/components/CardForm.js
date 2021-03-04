@@ -24,13 +24,12 @@ const CardForm = () => {
     }
 
     const handleExpiryInputChange = (event) => {
-        const expiry = event.target.value.substring(0,5)
-        const month = expiry.substring(0,2)
-        const year = expiry.slice(2,4)
-        if (expiry.length === 4){
-            setExpiryDate(`${month} / ${year}`)
+        const expiry = event.target.value
+        
+        if(!expiryDate.includes('/')){
+            expiry.length > 3 ? setExpiryDate(`${expiry.slice(0,2)}/${expiry.slice(2,4)}`): setExpiryDate(expiry)
         }else{
-            setExpiryDate(expiry)
+              setExpiryDate(expiry.slice(0,5))  
         }
     }
 
