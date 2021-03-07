@@ -16,16 +16,32 @@ const CardForm = () => {
 
     const [cardNumber, setCardNumber] = useState("")
     const [expiryDate, setExpiryDate] = useState("")
+    const [expiryHasError, setExpiryHasError] = useState(false)
     const [cvv, setCvv] = useState("")
 
-    const handleCreditCardInputChange = (event) => {
+    const handleCreditCardInputChange = (event) => { 
         const ccNumber = event.target.value
-        
+        // ccNumber.length > 16 ? setCardNumber(ccNumber.slice(0,16)) : setCardNumber(ccNumber)
+
+        //Autoformatting
+        // if(!ccNumber.includes(" ")){
+            ccNumber.length > 4 ? setCardNumber(`${ccNumber.slice(0,4)} ${ccNumber.slice(4,8)} ${ccNumber.slice(8,12)} ${ccNumber.slice(12,16)}`)  : setCardNumber(ccNumber.slice(0,19))
+        // }else{
+            // setCardNumber(ccNumber.slice(0,19))
+        // }
     }
 
     const handleExpiryInputChange = (event) => {
         const expiry = event.target.value
+
+        // month validation
+        expiry.slice(0,2) > 12 ? setExpiryHasError(true) : setExpiryHasError(false)
+
+        //Year Validation
+        const currentYear = new Date().getFullYear().toString().slice(2,4)
+        expiry.slice(3,5) < currentYear.slice(2,4) ? setExpiryHasError(true) : setExpiryHasError(false)
         
+        // Auto-formatting
         if(!expiryDate.includes('/')){
             expiry.length > 3 ? setExpiryDate(`${expiry.slice(0,2)}/${expiry.slice(2,4)}`): setExpiryDate(expiry)
         }else{
