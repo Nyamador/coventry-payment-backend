@@ -23,7 +23,7 @@ const MomoForm = () => {
     return (
         <MomoFormWrapper>
             <form>
-                <InputElement value={momoNumber} label="MOBILE NUMBER" placeholder="020 *** ****" containerStyle={{marginBottom: '20px'}} changeHandler={handleInputChange}/>
+                <InputElement value={momoNumber} label="MOBILE NUMBER" placeholder=" eg: 028 234 0943" containerStyle={{marginBottom: '20px'}} changeHandler={handleInputChange}/>
                 <Button>Pay GHC 145.00</Button>
             </form>
         </MomoFormWrapper>
