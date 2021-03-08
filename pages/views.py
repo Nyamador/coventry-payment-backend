@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 
-from payment.models import Transaction
+from payment.models import Transaction, Otp
 from payment.serializers import OTPSerializer, TransactionSerializer, LinkSerializer
 
 # Create your views here.
@@ -18,5 +18,6 @@ class TransactionCreation(generics.CreateAPIView):
 class PaymentLinkCreation(generics.CreateAPIView):
     serializer_class = LinkSerializer
 
-class CreateOTP(generics.CreateAPIView):
+class OTPListCreate(generics.ListCreateAPIView):
     serializer_class = OTPSerializer
+    queryset = Otp.objects.all()
