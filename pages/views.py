@@ -2,11 +2,18 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
 
-from payment.models import Transaction, Otp
+from payment.models import Transaction, Otp, Link
 from payment.serializers import OTPSerializer, TransactionSerializer, LinkSerializer
 
 # Create your views here.
 def index(request):
+    return render(request, 'pages/index.html')
+
+def PaymentView(request, uuid):
+    # link = Link.objects.get(uuid=uuid)
+    # context = {
+    #     'link_data' : link
+    # }
     return render(request, 'pages/index.html')
 
 class TransactionList(generics.ListAPIView):
