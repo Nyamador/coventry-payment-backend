@@ -142,6 +142,7 @@ cython_debug/
 #Node
 node_modules
 yarn.lock 
+main.js
 
 #webpack output
 frontend/static
