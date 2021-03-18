@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import FlexColumn from './FlexColumn'
 
 const InputWrapper = styled(FlexColumn)`
-    border: 1px solid #E1E1E1;
-    border-radius: 2px solid;
+    border: ${props => props.error ? "1px solid #e60023" : "1px solid #E1E1E1"};
+    border-radius: 2px;
     padding: 8px;
 `
 
@@ -20,11 +20,11 @@ const Input = styled.input`
     border: none;
 `
 
-const InputElement = ({type, value, required, placeholder, id, label, containerStyle, changeHandler}) => {
+const InputElement = ({type, value, required, placeholder, id, label, containerStyle, changeHandler, hasError}) => {
     return (
-        <InputWrapper style={containerStyle}>
+        <InputWrapper style={containerStyle} error={hasError}>
             <Label htmlFor={id} className="font-s">{label}</Label>
-            <Input type={type} value={value} required={!required ? true : required} placeholder={placeholder} id={id} onChange={(event) => changeHandler(event)}/>
+            <Input  type={type} value={value} required={!required ? true : required} placeholder={placeholder} id={id} onChange={(event) => changeHandler(event)}/>
         </InputWrapper>
     );
 }
