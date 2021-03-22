@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     #3rd party
     'allauth',
     'allauth.account',
-    'rest_framework'
+    'allauth.socialaccount',
+    'rest_framework',
+    'oauth2_provider'
 ]
 
 MIDDLEWARE = [
