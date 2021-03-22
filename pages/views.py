@@ -26,7 +26,11 @@ class TransactionCreation(generics.CreateAPIView):
 class PaymentLinkCreation(generics.CreateAPIView):
     serializer_class = LinkSerializer
 
-
+    # def create(self, request, *args, **kwargs):
+    #     otp_id = request.query_params.get('ref')
+    #     query = Otp.objects.get(reference=otp_id)
+    #     serializer = self.get_serializer(query)
+    #     return Response(serializer.data)
 
 class OTPListCreate(generics.ListCreateAPIView):
     serializer_class = OTPSerializer
