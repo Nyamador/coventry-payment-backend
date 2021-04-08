@@ -4,7 +4,7 @@ from .models import Transaction, Otp, Link
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
-        fields = ['public_id', 'external_id', 'amount']
+        exclude = ['id' ,'user']
 
 
 class OTPSerializer(serializers.ModelSerializer):

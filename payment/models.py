@@ -16,7 +16,7 @@ class Link(models.Model):
     date_created = models.DateField("Date Created", auto_now_add=True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class Transaction(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -35,7 +35,7 @@ class Transaction(models.Model):
 
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class Otp(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
