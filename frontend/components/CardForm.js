@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components'
-import InputElement from './InputElement'
+import InputElement, {CardInputElement} from './InputElement'
 import Button from './Button'
 import FlexRow from './FlexRow'
 
@@ -16,6 +16,7 @@ const CardForm = () => {
 
     const [cardNumber, setCardNumber] = useState("")
     const [expiryDate, setExpiryDate] = useState("")
+    const [cardIssuer, setCardIssuer] = useState("")
     const [expiryHasError, setExpiryHasError] = useState(false)
     const [cvv, setCvv] = useState("")
 
@@ -23,6 +24,14 @@ const CardForm = () => {
         const ccNumber = event.target.value
 
         ccNumber.length > 16 ? setCardNumber(ccNumber.slice(0,16)) : setCardNumber(ccNumber)
+
+        if ( ccNumber.charAt(0) == 4  ) {
+            setCardIssuer("visacard")
+        }else if(ccNumber.charAt(0) == 5){
+            setCardIssuer("mastercard")
+        }else{
+            setCardIssuer(" ")
+        }
 
         //Autoformatting
     }
@@ -53,7 +62,9 @@ const CardForm = () => {
     return (
         <CardFormWrapper>
             <form onSubmit={e => e.preventDefault()}>
-                <InputElement type="text" value={cardNumber} label="CARD NUMBER" placeholder="4242 4242 4242 4242" id="card_number" containerStyle={{borderBottom: '0px'}} changeHandler={handleCreditCardInputChange}/>
+                {/* <InputElement type="text" value={cardNumber} issuer_logo={cardIssuer} label="CARD NUMBER" placeholder="4242 4242 4242 4242" id="card_number" containerStyle={{borderBottom: '0px'}} changeHandler={handleCreditCardInputChange}/> */}
+                <CardInputElement type="text" value={cardNumber} issuer_logo={cardIssuer} label="CARD NUMBER" placeholder="4242 4242 4242 4242" id="card_number" containerStyle={{borderBottom: '0px'}} changeHandler={handleCreditCardInputChange}/>
+                
 
                 <MonthCvvWrapper>
                     <InputElement type="text" value={expiryDate} hasError={expiryHasError} label="EXPIRY DATE" placeholder="MM / YY" id="card_number" containerStyle={{ width: '50%', borderRight: '0px'}} changeHandler={handleExpiryInputChange}/>
