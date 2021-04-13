@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import viewsets
 from rest_framework.response import Response
 
 from payment.models import Transaction, Otp, Link
@@ -10,34 +10,35 @@ def index(request):
     return render(request, 'pages/index.html')
 
 def PaymentView(request, uuid):
-    # link = Link.objects.get(uuid=uuid)
-    # context = {
-    #     'link_data' : link
-    # }
+    try:
+        link = Link.objects.get(uuid=uuid)
+        context = {
+            'link_data' : link
+        }
+    except Link.DoesNotExist:
+        print("ssd")
     return render(request, 'pages/index.html')
 
-class TransactionList(generics.ListAPIView):
+def errorview(request):
+    return render(request, 'pages/index.html')
+
+
+class TransactionViewSet(viewsets.ModelViewSet):
+    """
+        Transaction ViewSet
+    """
+    serializer_class = TransactionSerializer
     queryset = Transaction.objects.all()
-    serializer_class = TransactionSerializer
 
-class TransactionCreation(generics.CreateAPIView):
-    serializer_class = TransactionSerializer
 
-class PaymentLinkCreation(generics.CreateAPIView):
-    serializer_class = LinkSerializer
-
-    # def create(self, request, *args, **kwargs):
-    #     otp_id = request.query_params.get('ref')
-    #     query = Otp.objects.get(reference=otp_id)
-    #     serializer = self.get_serializer(query)
-    #     return Response(serializer.data)
-
-class OTPListCreate(generics.ListCreateAPIView):
+class OTPViewSet(viewsets.ModelViewSet):
+    """
+        OTP ViewSet
+    """
     serializer_class = OTPSerializer
     queryset = Otp.objects.all()
 
-    def list(self, request, *args, **kwargs):
-        otp_id = request.query_params.get('ref')
-        query = Otp.objects.get(reference=otp_id)
-        serializer = self.get_serializer(query)
-        return Response(serializer.data)
+
+class LinkViewSet(viewsets.ModelViewSet):
+    serializer_class = LinkSerializer
+    queryset = Link.objects.all()
