@@ -14,6 +14,7 @@ class OTPSerializer(serializers.ModelSerializer):
 
 
 class LinkSerializer(serializers.ModelSerializer):
+    url = serializers.CharField(source='get_absolute_url', read_only=True)
     class Meta:
         model = Link
-        fields = ['uuid', 'date_created']
+        fields = ['url', 'date_created']

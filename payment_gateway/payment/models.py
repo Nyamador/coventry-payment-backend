@@ -18,6 +18,9 @@ class Link(models.Model):
     def __str__(self):
         return str(self.id)
 
+    def get_absolute_url(self):
+        return f"http://localhost:8000/pay/{self.uuid}"
+
 class Transaction(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     public_id = models.UUIDField(default=uuid.uuid4, editable=False)

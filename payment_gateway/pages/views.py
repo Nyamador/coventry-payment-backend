@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from payment.models import Transaction, Otp, Link
 from payment.serializers import OTPSerializer, TransactionSerializer, LinkSerializer
+from users.Token import PublicKeyToken
 
 # Create your views here.
 def index(request):
@@ -40,5 +42,7 @@ class OTPViewSet(viewsets.ModelViewSet):
 
 
 class LinkViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+
     serializer_class = LinkSerializer
     queryset = Link.objects.all()
