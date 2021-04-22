@@ -16,7 +16,7 @@ class Link(models.Model):
     date_created = models.DateField("Date Created", auto_now_add=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.uuid)
 
     def get_absolute_url(self):
         return f"http://localhost:8000/pay/{self.uuid}"
@@ -36,6 +36,15 @@ class Transaction(models.Model):
     link = models.OneToOneField(Link, on_delete=models.CASCADE)
     date_created = models.DateField("Date Created", auto_now_add=True)
 
+
+    def __str__(self):
+        return str(self.id)
+
+
+class Refund(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
+    date_created = models.DateField("Date Created", auto_now_add=True)
 
     def __str__(self):
         return str(self.id)

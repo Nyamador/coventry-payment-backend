@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -33,6 +34,24 @@ class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
 
 
+    def list(self, request):
+        queryset = Transaction.objects.filter(user=request.user.id)
+        serializer = TransactionSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        transaction = Transaction.objects.create(
+            user = request.user.id,
+            amount = request.data["amount"],
+            customer_name = request.data["customer"]["name"],
+            customer_email = request.data["customer"]["email"],
+            customer_mobile = request.data["customer"]["mobile"],
+        )
+        transaction.save()
+        serializer = TransactionSerializer(transaction)
+        return Response(serializer.data)
+
+
 class OTPViewSet(viewsets.ModelViewSet):
     """
         OTP ViewSet
@@ -46,3 +65,20 @@ class LinkViewSet(viewsets.ModelViewSet):
 
     serializer_class = LinkSerializer
     queryset = Link.objects.all()
+
+    def list(self, request):
+        queryset = Link.objects.all()
+        serializer = LinkSerializer(queryset)
+        return Response(serializer.data)
+
+    def create(self, request):
+        link = Link.objects.create(
+            user=request.user,
+            amount=request.data["amount"],
+            customer_name=request.data["customer_name"],
+            customer_email=request.data["customer_email"],
+            customer_mobile=request.data["customer_mobile"]
+            )
+        link.save()
+        serializer = LinkSerializer(link)
+        return Response(serializer.data)
