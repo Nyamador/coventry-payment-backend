@@ -1,21 +1,25 @@
 import React from 'react'
 import PaymentContainer from './PaymentContainer'
 import styled from 'styled-components'
+import Pattern from '../icons/curved-pattern-blue.png'
 
 
 const AppWrapper = styled.main`
     width: 100%;
-    background-color: #CBCBCB;
+    background-color: #eaf6fc;
     height: 100vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    background-image: url(${props => props.img});
+    background-position: 0 50px;
+    background-reapeat: repeat-x;
 `
 
 
 const App = () => {
     return (
-        <AppWrapper>
+        <AppWrapper img={Pattern}>
             <PaymentContainer/>
     </AppWrapper>
     )

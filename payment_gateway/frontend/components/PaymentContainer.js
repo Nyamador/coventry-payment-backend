@@ -20,8 +20,9 @@ const PaymentWrapper = styled(FlexColumn)`
     width: 30%;
     background-color: white;
     margin: auto;
-    min-height: 95%;
+    min-height: 70%;
     border-radius: 4px;
+    box-shadow: 0px 0px 7px 6px #c1c1c121;
 `
 
 const Header = styled.div`

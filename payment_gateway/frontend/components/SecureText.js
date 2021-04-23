@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import lock from '../icons/lock.svg'
+import close from '../icons/close.svg'
 
 
 
@@ -22,10 +23,21 @@ const CloseButton = styled.button`
     outline: none;
     background: none;
     border: none;
-    color: red;
-    font-size: 10.24px;
     margin-left: auto;
     cursor: pointer;
+    height: 20px;
+    transition: all 1s;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+
+    &:hover{
+        background: red;
+    }
 `
 
 const SecureText = () => {
@@ -38,7 +50,7 @@ const SecureText = () => {
             <Text>Secured by CoventryPay</Text>
 
             <CloseButton>
-                Close
+                <img src={close} title="close"/>
             </CloseButton>
         </SecureTextWrapper>
         </>

@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 
 const Wrapper = styled.button`
-    background-color : #338FF8;
+    background-color : #29b263;
+    border-color: #29b263;
     border: none;
     border-radius: 2px;
     width: 100%;
@@ -11,6 +12,7 @@ const Wrapper = styled.button`
     color: white;
     min-width: 64px;
     font-weight: bold;
+    border-radius: 4px;
     outline: #d3e7fe;
     box-shadow: 0px 3px 6px  #cbcbcb87;
 
