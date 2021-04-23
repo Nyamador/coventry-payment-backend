@@ -13,6 +13,8 @@ import SelectedMethodHeader from './SelectedMethodHeader.jsx'
 
 
 import card from '../icons/credit-card.svg'
+import activeCard from '../icons/card_active.svg'
+import activePhone from '../icons/phone_active.svg'
 import phone from '../icons/phone.svg'
 
 
@@ -71,8 +73,8 @@ const PaymentContainer = () => {
         <PaymentWrapper>
             <Header>
                 {showHowToPay && <SecureText/>}
-                {isCardActive && <SelectedMethodHeader title="Card " img_url={card}/>}
-                {isMomoActive && <SelectedMethodHeader title="MoMo" img_url={phone}/>}
+                {isCardActive && <SelectedMethodHeader title="Card " img_url={activeCard}/>}
+                {isMomoActive && <SelectedMethodHeader title="MoMo" img_url={activePhone}/>}
             </Header>
             <LogoAndAmount/>
             

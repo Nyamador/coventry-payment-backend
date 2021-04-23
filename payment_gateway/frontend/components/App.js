@@ -18,8 +18,11 @@ const AppWrapper = styled.main`
 
 
 const App = () => {
+    React.useEffect(() => {
+        document.title = "Payment Gateway"
+    }, [])
     return (
-        <AppWrapper img={Pattern}>
+    <AppWrapper img={Pattern}>
             <PaymentContainer/>
     </AppWrapper>
     )

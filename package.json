@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "creditcard.js": "^3.0.6"
+  }
+}

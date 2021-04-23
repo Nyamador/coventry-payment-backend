@@ -82,3 +82,68 @@ h1,h2,h3,h4,h5,h6,p{
 .font-xxs {
   font-size: 8.19px;
 }
+
+.ml-auto{
+  margin-left: auto;
+}
+
+.need_help{
+  cursor: pointer;
+}
+
+.cvv_dialog{
+  background-color: white;
+  position: absolute;
+  border-radius: 3px;
+  z-index: 10;
+}
+
+.hint_text{
+  color: #444;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 16px;
+  border-radius: 0 0 4px 4px;
+}
+
+.hint_image{
+  border-radius:4px 4px 0 0;
+}
+
+.hint_image img{
+  width: 100%;
+    height: auto;
+    -o-object-fit: contain;
+    object-fit: contain;
+    -o-object-position: center;
+    object-position: center;
+    pointer-events: none;
+    border-radius: 4px 4px 0 0;
+}
+
+.cvv_dialog button{
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    height: 17px;
+    width: 17px;
+    font-size: 12px;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    line-height: 14px;
+    cursor: pointer;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    color: #222;
+    background: transparent;
+    outline: none;
+}
+
+.cvv_dialog button:hover{
+  background: #fc635d;
+  color: #fff;
+}

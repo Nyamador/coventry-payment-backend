@@ -6,11 +6,13 @@ import FlexRow from './FlexRow'
 
 import visacard from '../icons/vs.svg'
 import mastercard from '../icons/ms.svg'
+import cvvHelper from '../icons/cvv_helper.png'
 
 const InputWrapper = styled(FlexColumn)`
     border: ${props => props.error ? "1px solid #e60023" : "1px solid #E1E1E1"};
     border-radius: 2px;
     padding: 8px;
+    position: relative;
 `
 
 const Label = styled.label`
@@ -22,15 +24,38 @@ const Input = styled.input`
     color: #CBCBCB;
     outline: none;
     border: none;
+    transition: all 4s;
 `
 
 const InputElement = ({type, value, required, placeholder, id, label, containerStyle, changeHandler, hasError}) => {
 
+    const [isCvvDialogOpen, setIsCvvDialogOpen] = React.useState(false)
+
     return (
-        <InputWrapper style={containerStyle} error={hasError}>
-            <Label htmlFor={id} className="font-s">{label}</Label>
-            <Input  type={type} value={value} required={!required ? true : required} placeholder={placeholder} id={id} onChange={(event) => changeHandler(event)}/>
+        <>
+        <InputWrapper style={containerStyle} error={hasError} cvvDialog={isCvvDialogOpen}>
+            <FlexRow>
+                <Label htmlFor={id} className="font-s">{label}</Label>
+                {label === "CVV" && <div className="font-xs ml-auto need_help" onClick={() => isCvvDialogOpen ? setIsCvvDialogOpen(false) : setIsCvvDialogOpen(true)}>HELP?</div>}
+            </FlexRow>
+            <Input className={isCvvDialogOpen && "cvv_input"} type={type} value={value} required={!required ? true : required} placeholder={placeholder} id={id} onChange={(event) => changeHandler(event)}/>
+            
+            
+            { isCvvDialogOpen &&
+              <div className="cvv_dialog">
+                    <button onClick={() => setIsCvvDialogOpen(false)}>
+                        <div>x</div>
+                    </button>
+                    <div className="hint_image">
+                        <img src={cvvHelper} />
+                    </div>
+                    <div className="hint_text">
+                        <p>Your CVV is the 3 or 4-digit number on the back of your card (the side without the chip).</p>
+                    </div>
+              </div>}
+
         </InputWrapper>
+        </>
     );
 }
 
@@ -40,7 +65,7 @@ export default InputElement;
 export const CardInputElement = ({type, value, required, placeholder, id, label, containerStyle, changeHandler, hasError, issuer_logo}) => {
     
     const get_issuer_logo = (issuer_name) => {
-        if(issuer_name === "mastercard"){
+        if(issuer_name === "Mastercard"){
             return mastercard
         }else if(issuer_name === "visacard"){
             return visacard

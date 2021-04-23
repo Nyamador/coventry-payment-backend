@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components'
 import InputElement, {CardInputElement} from './InputElement'
+import { isValid, isExpirationDateValid, isSecurityCodeValid, getCreditCardNameByNumber } from 'creditcard.js';
 import Button from './Button'
 import FlexRow from './FlexRow'
 
@@ -19,20 +20,39 @@ const CardForm = () => {
     const [cardIssuer, setCardIssuer] = useState("")
     const [expiryHasError, setExpiryHasError] = useState(false)
     const [cvv, setCvv] = useState("")
+    const [cvvIsValid, setCvvIsValid] = useState(false)
 
+    const cc_format = (value) => {
+        let v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+        let matches = v.match(/\d{4,16}/g);
+        let match = matches && matches[0] || ''
+        let parts = []
+        for (let i=0, len=match.length; i<len; i+=4) {
+          parts.push(match.substring(i, i+4))
+        }
+        if (parts.length) {
+          return parts.join(' ')
+        } else {
+          return value
+        }
+      }
+      
     const handleCreditCardInputChange = (event) => { 
         const ccNumber = event.target.value
 
-        ccNumber.length > 16 ? setCardNumber(ccNumber.slice(0,16)) : setCardNumber(ccNumber)
+        ccNumber.length > 16 ? setCardNumber(cc_format(ccNumber.slice(0,19))) : setCardNumber(cc_format(ccNumber))
 
-        if ( ccNumber.charAt(0) == 4  ) {
-            setCardIssuer("visacard")
-        }else if(ccNumber.charAt(0) == 5){
-            setCardIssuer("mastercard")
-        }else{
-            setCardIssuer(" ")
-        }
+        setCardIssuer(getCreditCardNameByNumber(ccNumber))
+        // if ( ccNumber.charAt(0) == 4  ) {
+        //     setCardIssuer("visacard")
+        // }else if(ccNumber.charAt(0) == 5){
+        //     setCardIssuer("mastercard")
+        // }else{
+        //     setCardIssuer(" ")
+        // }
 
+        // console.log(isValid(ccNumber))
+        // console.log(getCreditCardNameByNumber(ccNumber))
         //Autoformatting
     }
 
@@ -57,13 +77,13 @@ const CardForm = () => {
     const handleCVVInputChange = (event) => {
         const cvvvalue = event.target.value
         cvvvalue.length > 3 ? setCvv(cvvvalue.slice(0,3)) : setCvv(cvvvalue)
+        console.log("sdS", isSecurityCodeValid(cardNumber, cvvvalue))
     }
 
     return (
         <CardFormWrapper>
             <form onSubmit={e => e.preventDefault()}>
-                {/* <InputElement type="text" value={cardNumber} issuer_logo={cardIssuer} label="CARD NUMBER" placeholder="4242 4242 4242 4242" id="card_number" containerStyle={{borderBottom: '0px'}} changeHandler={handleCreditCardInputChange}/> */}
-                <CardInputElement type="text" value={cardNumber} issuer_logo={cardIssuer} label="CARD NUMBER" placeholder="4242 4242 4242 4242" id="card_number" containerStyle={{borderBottom: '0px'}} changeHandler={handleCreditCardInputChange}/>
+                <CardInputElement type="text" value={cardNumber} issuer_logo={cardIssuer} label="CARD NUMBER" placeholder="4242 4242 4242 4242" id="card_number" containerStyle={{marginBottom: '10px'}} changeHandler={handleCreditCardInputChange}/>
                 
 
                 <MonthCvvWrapper>

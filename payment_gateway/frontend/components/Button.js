@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 
 const Wrapper = styled.button`
-    background-color : #29b263;
+    background: linear-gradient(180deg,#44b669 0,#40ad57);
+    bckground: #44b669;
     border-color: #29b263;
     border: none;
     border-radius: 2px;

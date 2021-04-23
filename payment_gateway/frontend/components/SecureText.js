@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import lock from '../icons/lock.svg'
 import close from '../icons/close.svg'
 
+  
 
 
 const SecureTextWrapper = styled.div`
