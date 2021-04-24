@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components'
 import InputElement, {CardInputElement} from './InputElement'
 import { isValid, isExpirationDateValid, isSecurityCodeValid, getCreditCardNameByNumber } from 'creditcard.js';
@@ -14,13 +14,30 @@ const MonthCvvWrapper = styled(FlexRow)`
 `
 
 const CardForm = () => {
-
     const [cardNumber, setCardNumber] = useState("")
     const [expiryDate, setExpiryDate] = useState("")
-    const [cardIssuer, setCardIssuer] = useState("")
+    const [cardIssuer, setCardIssuer] = useState(getCreditCardNameByNumber(cardNumber))
     const [expiryHasError, setExpiryHasError] = useState(false)
     const [cvv, setCvv] = useState("")
     const [cvvIsValid, setCvvIsValid] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(async () => {
+        const response = await fetch(`http://localhost:8000/api/v1/links/${window.location.pathname.split('/')[2]}/`, {
+            method: 'GET',
+            headers:{
+                'Authorization': 'Token 11fd430bb58258c46f656613074376c8f17dfbdc'
+            }
+        })
+
+        if(!response.ok){
+            const message = "An error has occured"
+            throw new Error(message)
+        }
+        const data = response.json()
+        console.log(data.data)
+
+    }, [])
 
     const cc_format = (value) => {
         let v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
@@ -40,9 +57,9 @@ const CardForm = () => {
     const handleCreditCardInputChange = (event) => { 
         const ccNumber = event.target.value
 
-        ccNumber.length > 16 ? setCardNumber(cc_format(ccNumber.slice(0,19))) : setCardNumber(cc_format(ccNumber))
+        ccNumber.length > 16 ? () => setCardNumber(cc_format(ccNumber.slice(0,19))) : setCardNumber(cc_format(ccNumber))
 
-        setCardIssuer(getCreditCardNameByNumber(ccNumber))
+        // setCardIssuer(getCreditCardNameByNumber(ccNumber))
         // if ( ccNumber.charAt(0) == 4  ) {
         //     setCardIssuer("visacard")
         // }else if(ccNumber.charAt(0) == 5){

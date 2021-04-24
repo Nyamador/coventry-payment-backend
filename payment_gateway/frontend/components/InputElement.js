@@ -6,6 +6,7 @@ import FlexRow from './FlexRow'
 
 import visacard from '../icons/vs.svg'
 import mastercard from '../icons/ms.svg'
+import amex from '../icons/amex.png'
 import cvvHelper from '../icons/cvv_helper.png'
 
 const InputWrapper = styled(FlexColumn)`
@@ -67,8 +68,10 @@ export const CardInputElement = ({type, value, required, placeholder, id, label,
     const get_issuer_logo = (issuer_name) => {
         if(issuer_name === "Mastercard"){
             return mastercard
-        }else if(issuer_name === "visacard"){
+        }else if(issuer_name === "Visa"){
             return visacard
+        }else if (issuer_name === "American Express"){
+            return amex
         }
     }
 

@@ -13,7 +13,7 @@ const AppWrapper = styled.main`
     flex-direction: column;
     background-image: url(${props => props.img});
     background-position: 0 50px;
-    background-reapeat: repeat-x;
+    background-rpeat: repeat-x;
 `
 
 
