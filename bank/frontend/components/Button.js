@@ -5,16 +5,22 @@ const Wrapper = styled.button`
     padding: 12px;
     padding-left: 14px;
     padding-right: 14px;
-    background: blue;
+    background: black;
+    width: 100%;    
     color: white;
     border-radius: 8px;
     border: none;
     outline: none;
+    cursor: pointer;
+
+    &:focus{
+        transform: scale(0.99)
+    }
 `
 
-const Button = ({text, onClick, style}) => {
+const Button = ({children, onClick, style}) => {
     return (
-        <Wrapper onClick={onClick} style={style}>{text}</Wrapper>
+        <Wrapper onClick={onClick} style={style}>{children}</Wrapper>
     );
 }
 
